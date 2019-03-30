@@ -1,0 +1,19 @@
+{
+  "name": "weblab5",
+  "version": "0.0.1",
+  "description": "Fifth lab web programming",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stalder/weblab5.git"
+  },
+  "author": "Sergey Lavinov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stalder/weblab5/issues"
+  },
+  "homepage": "https://github.com/Stalder/weblab5#readme"
+}
