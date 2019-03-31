@@ -6,3 +6,5 @@ var draftSchema = new mongoose.Schema({
 });
 
 var Draft = mongoose.model("Draft", draftSchema);
+
+module.exports.Draft = Draft;

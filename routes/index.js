@@ -1,28 +1,14 @@
 var express = require("express");
 var router = express.Router();
 
-/* GET home page. */
-router.get("/drafts", function(req, res, next) {
-  res.json({ result: "Return all drafts" });
-});
+var controller = require("../controllers/draft");
 
-router.post("/drafts", function(req, res, next) {
-  res.json({ result: "Creating new draft" });
-});
+router.get("/drafts", controller.getDrafts);
 
-router.get("/drafts/:id", function(req, res, next) {
-  const id = req.params.id;
-  res.json({ result: "Returned draft with id " + id });
-});
+router.post("/drafts", controller.createDraft);
 
-router.put("/drafts/:id", function(req, res, next) {
-  const id = req.params.id;
-  res.json({ result: "Saved draft " + id });
-});
+router.put("/drafts/:id", controller.updateDraft);
 
-router.delete("/drafts/:id", function(req, res, next) {
-  const id = req.params.id;
-  res.json({ result: "Deleted draft " + id });
-});
+router.delete("/drafts/:id", controller.deleteDraft);
 
 module.exports = router;
