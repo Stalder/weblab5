@@ -1,19 +1,45 @@
 var { Draft } = require("../database/draft");
 
-module.exports.getDrafts = function(req, res, next) {
-  res.json({ result: "Return all drafts" });
+module.exports.getDrafts = async function(req, res, next) {
+  const drafts = await Draft.find();
+  res.json({ drafts });
 };
 
-module.exports.createDraft = function(req, res, next) {
-  res.json({ result: "Creating new draft" });
+module.exports.createDraft = async function(req, res, next) {
+  const { title, markup } = req.body;
+  if (!title || !markup) {
+    return res.json({ error: "Not provided title or markup field" });
+  }
+  const newDraft = new Draft({
+    title,
+    markup
+  });
+
+  const savedDraft = await newDraft.save();
+
+  res.json({ draft: savedDraft });
 };
 
-module.exports.updateDraft = function(req, res, next) {
+module.exports.updateDraft = async function(req, res, next) {
   const id = req.params.id;
-  res.json({ result: "Saved draft " + id });
+  const { title, markup } = req.body;
+
+  if (!title || !markup) {
+    return res.json({ error: "Not provided title or markup field" });
+  }
+  const updatedDraft = {
+    title,
+    markup
+  };
+
+  const draft = await Draft.findByIdAndUpdate(id, updatedDraft, { new: true });
+
+  res.json({ resulr: "success", draft });
 };
 
-module.exports.deleteDraft = function(req, res, next) {
+module.exports.deleteDraft = async function(req, res, next) {
   const id = req.params.id;
-  res.json({ result: "Deleted draft " + id });
+  const deletedDraft = await Draft.findByIdAndDelete(id);
+
+  res.json({ resulr: "success", deleted: deletedDraft });
 };
