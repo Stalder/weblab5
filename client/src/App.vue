@@ -14,6 +14,19 @@ export default {
   components: {
     Pull,
     Markup
+  },
+  data: () => ({
+    draftList: [],
+    currentDraft: []
+  }),
+  created: async () => {
+    console.log("Created component");
+    try {
+      const data = await fetch("http://127.0.0.1:3000/drafts");
+      console.log(await data.json());
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 </script>
