@@ -69,6 +69,18 @@ export default {
       console.log(draft);
       const { data } = await axios.delete("http://127.0.0.1:3000/drafts/" + id);
 
+      let index;
+      for (let i = 0; i < this.draftList.length; i++) {
+        if (this.draftList[i]._id === draft._id) {
+          index = i;
+          break;
+        }
+      }
+
+      this.draftList.splice(index, 1);
+      this.draftList = [...this.draftList];
+      this.currentDraft = this.draftList[0];
+
       console.log(data);
     }
   }
