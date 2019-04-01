@@ -26,6 +26,7 @@ export default {
     try {
       const response = await fetch("http://127.0.0.1:3000/drafts");
       this.draftList = (await response.clone().json()).drafts;
+      this.currentDraft = this.currentDraft[0];
     } catch (error) {
       console.log(error);
     }
@@ -41,6 +42,21 @@ export default {
       });
 
       this.draftList.push(data.draft);
+    },
+    onUpdate: async function(draft) {
+      const id = draft._id;
+
+      console.log(draft);
+      // const { data } = await axios.put("http://127.0.0.1:3000/drafts/" + id, {
+      //   title: draft.title,
+      //   markup: draft.markup
+      // });
+    },
+    onDelete: async function(draft) {
+      const id = draft._id;
+
+      console.log(draft);
+      // const { data } = await axios.delete("http://127.0.0.1:3000/drafts/" + id);
     }
   }
 };

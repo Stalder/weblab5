@@ -51,6 +51,9 @@ export default {
   },
   watch: {
     currentDraft: function(newDraft) {
+      if (!newDraft) {
+        return;
+      }
       this.localTitle = newDraft.title;
       this.localMarkup = newDraft.markup;
     }

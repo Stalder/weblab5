@@ -5,7 +5,7 @@
       <li v-for="draft in pull" v-bind:key="draft._id">
         <a href="#" v-on:click="onPress(draft)">{{draft.title}}</a>
       </li>
-      <button v-on:click="onAddNew()">Add new</button>
+      <button style="margin-top: 20px" v-on:click="onAddNew()">Add new</button>
     </ul>
   </div>
 </template>
@@ -22,9 +22,6 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-  margin: 28px 0 0;
-}
 ul {
   list-style-type: none;
   padding: 0;
