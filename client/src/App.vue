@@ -46,14 +46,21 @@ export default {
     onUpdate: async function(draft) {
       const id = draft._id;
 
-      console.log("save");
-      console.log(draft);
       const { data } = await axios.put("http://127.0.0.1:3000/drafts/" + id, {
         title: draft.title,
         markup: draft.markup
       });
 
-      console.log(data);
+      let index;
+      for (let i = 0; i < this.draftList.length; i++) {
+        if (this.draftList[i]._id === draft._id) {
+          index = i;
+          break;
+        }
+      }
+      this.draftList[index] = data.draft;
+      this.draftList = [...this.draftList];
+      this.currentDraft = data.draft;
     },
     onDelete: async function(draft) {
       const id = draft._id;
