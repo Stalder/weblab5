@@ -48,17 +48,21 @@ export default {
 
       console.log("save");
       console.log(draft);
-      // const { data } = await axios.put("http://127.0.0.1:3000/drafts/" + id, {
-      //   title: draft.title,
-      //   markup: draft.markup
-      // });
+      const { data } = await axios.put("http://127.0.0.1:3000/drafts/" + id, {
+        title: draft.title,
+        markup: draft.markup
+      });
+
+      console.log(data);
     },
     onDelete: async function(draft) {
       const id = draft._id;
 
       console.log("delete");
       console.log(draft);
-      // const { data } = await axios.delete("http://127.0.0.1:3000/drafts/" + id);
+      const { data } = await axios.delete("http://127.0.0.1:3000/drafts/" + id);
+
+      console.log(data);
     }
   }
 };

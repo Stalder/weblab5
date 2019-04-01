@@ -1,7 +1,7 @@
 <template>
   <div class="markup">
     <header class="header">
-      <input value="Untitled">
+      <input :value="localTitle" @input="updateTitle">
       <div>
         <button v-on:click="onSave(draftAsObject)" style="margin-right: 10px">save</button>
         <button v-on:click="onDelete(draftAsObject)">delete</button>
@@ -50,6 +50,9 @@ export default {
   methods: {
     update: _.debounce(function(event) {
       this.localMarkup = event.target.value;
+    }, 500),
+    updateTitle: _.debounce(function(event) {
+      this.localTitle = event.target.value;
     }, 500)
   },
   watch: {
