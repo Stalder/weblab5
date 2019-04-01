@@ -20,7 +20,7 @@ cd client
 yarn
 yarn serve
 ```
-Для запуска наобходимо создать в коре проекта файл credentials.js и прописать там 
+Для запуска наобходимо создать в корне проекта файл credentials.js и прописать там 
 ```js
 module.exports = {
   user: "YOUR_DB_USER",
