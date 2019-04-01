@@ -5,12 +5,7 @@
       <li v-for="draft in pull" v-bind:key="draft._id">
         <a href="#" v-on:click="onPress(draft)">{{draft.title}}</a>
       </li>
-      <!-- <li>
-        <a href="#">Draft 2</a>
-      </li>
-      <li>
-        <a href="#">Draft 3</a>
-      </li>-->
+      <button v-on:click="onAddNew()">Add new</button>
     </ul>
   </div>
 </template>
@@ -20,7 +15,8 @@ export default {
   name: "Pull",
   props: {
     pull: Array,
-    onPress: Function
+    onPress: Function,
+    onAddNew: Function
   }
 };
 </script>

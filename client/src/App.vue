@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Pull v-bind:pull="draftList" v-bind:onPress="onDraftPress"/>
+    <Pull v-bind:pull="draftList" v-bind:onPress="onDraftPress" v-bind:onAddNew="onAddNew"/>
     <Markup v-bind:currentDraft="currentDraft"/>
   </div>
 </template>
@@ -8,6 +8,7 @@
 <script>
 import Pull from "./components/Pull.vue";
 import Markup from "./components/Markup.vue";
+import axios from "axios";
 
 export default {
   name: "app",
@@ -22,9 +23,7 @@ export default {
     };
   },
   created: async function() {
-    console.log("Created component");
     try {
-      console.log("Start requesting drafts");
       const response = await fetch("http://127.0.0.1:3000/drafts");
       this.draftList = (await response.clone().json()).drafts;
     } catch (error) {
@@ -34,6 +33,14 @@ export default {
   methods: {
     onDraftPress: function(draft) {
       this.currentDraft = draft;
+    },
+    onAddNew: async function() {
+      const { data } = await axios.post("http://127.0.0.1:3000/drafts", {
+        title: "Untitled",
+        markup: "# Write your markup here"
+      });
+
+      this.draftList.push(data.draft);
     }
   }
 };
