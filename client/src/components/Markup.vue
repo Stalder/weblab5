@@ -8,7 +8,7 @@
       </div>
     </header>
     <div class="markup-area">
-      <textarea :value="input" @input="update"></textarea>
+      <textarea :value="localMarkup" @input="update"></textarea>
       <div class="result" v-html="compiledMarkdown"></div>
     </div>
   </div>
@@ -26,17 +26,18 @@ export default {
   },
   data: function() {
     return {
-      input: "# Hello"
+      localTitle: this.title || "Untitled",
+      localMarkup: this.markup || "# Hello"
     };
   },
   computed: {
     compiledMarkdown: function() {
-      return marked(this.input, { sanitize: true });
+      return marked(this.localMarkup, { sanitize: true });
     }
   },
   methods: {
     update: _.debounce(function(event) {
-      this.input = event.target.value;
+      this.localMarkup = event.target.value;
     }, 500)
   }
 };
