@@ -3,8 +3,8 @@
     <header class="header">
       <input value="Untitled">
       <div>
-        <button style="margin-right: 10px">save</button>
-        <button>delete</button>
+        <button v-on:click="onSave" style="margin-right: 10px">save</button>
+        <button v-on:click="onDelete">delete</button>
       </div>
     </header>
     <div class="markup-area">
@@ -20,14 +20,17 @@ import _ from "lodash";
 
 export default {
   name: "Markup",
-  props: {
-    title: String,
-    markup: String
-  },
+  props: ["currentDraft"],
   data: function() {
+    if (this.currentDraft) {
+      return {
+        localTitle: this.currentDraft.title || "Untitled",
+        localMarkup: this.currentDraft.markup || "# Hello"
+      };
+    }
     return {
-      localTitle: this.title || "Untitled",
-      localMarkup: this.markup || "# Hello"
+      localTitle: "Untitled",
+      localMarkup: "# Hello"
     };
   },
   computed: {
@@ -38,7 +41,19 @@ export default {
   methods: {
     update: _.debounce(function(event) {
       this.localMarkup = event.target.value;
-    }, 500)
+    }, 500),
+    onSave: function() {
+      console.log("saved");
+    },
+    onDelete: function() {
+      console.log("Deleted");
+    }
+  },
+  watch: {
+    currentDraft: function(newDraft) {
+      this.localTitle = newDraft.title;
+      this.localMarkup = newDraft.markup;
+    }
   }
 };
 </script>

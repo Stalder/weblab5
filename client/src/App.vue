@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Pull v-bind:pull="draftList" v-bind:onPress="onDraftPress"/>
-    <Markup/>
+    <Markup v-bind:currentDraft="currentDraft"/>
   </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     onDraftPress: function(draft) {
-      console.log(draft);
+      this.currentDraft = draft;
     }
   }
 };
