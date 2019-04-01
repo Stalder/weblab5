@@ -3,8 +3,8 @@
     <header class="header">
       <input value="Untitled">
       <div>
-        <button v-on:click="onSave" style="margin-right: 10px">save</button>
-        <button v-on:click="onDelete">delete</button>
+        <button v-on:click="onSave(draftAsObject)" style="margin-right: 10px">save</button>
+        <button v-on:click="onDelete(draftAsObject)">delete</button>
       </div>
     </header>
     <div class="markup-area">
@@ -20,15 +20,17 @@ import _ from "lodash";
 
 export default {
   name: "Markup",
-  props: ["currentDraft"],
+  props: ["currentDraft", "onSave", "onDelete"],
   data: function() {
     if (this.currentDraft) {
       return {
+        _id: this.currentDraft._id || 0,
         localTitle: this.currentDraft.title || "Untitled",
         localMarkup: this.currentDraft.markup || "# Hello"
       };
     }
     return {
+      _id: 0,
       localTitle: "Untitled",
       localMarkup: "# Hello"
     };
@@ -36,24 +38,26 @@ export default {
   computed: {
     compiledMarkdown: function() {
       return marked(this.localMarkup, { sanitize: true });
+    },
+    draftAsObject: function() {
+      return {
+        _id: this._id,
+        title: this.localTitle,
+        markup: this.localMarkup
+      };
     }
   },
   methods: {
     update: _.debounce(function(event) {
       this.localMarkup = event.target.value;
-    }, 500),
-    onSave: function() {
-      console.log("saved");
-    },
-    onDelete: function() {
-      console.log("Deleted");
-    }
+    }, 500)
   },
   watch: {
     currentDraft: function(newDraft) {
       if (!newDraft) {
         return;
       }
+      this._id = this.currentDraft._id;
       this.localTitle = newDraft.title;
       this.localMarkup = newDraft.markup;
     }

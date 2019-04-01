@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Pull v-bind:pull="draftList" v-bind:onPress="onDraftPress" v-bind:onAddNew="onAddNew"/>
-    <Markup v-bind:currentDraft="currentDraft"/>
+    <Markup v-bind:currentDraft="currentDraft" v-bind:onSave="onUpdate" v-bind:onDelete="onDelete"/>
   </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
     try {
       const response = await fetch("http://127.0.0.1:3000/drafts");
       this.draftList = (await response.clone().json()).drafts;
-      this.currentDraft = this.currentDraft[0];
+      this.currentDraft = this.draftList[0];
     } catch (error) {
       console.log(error);
     }
@@ -46,6 +46,7 @@ export default {
     onUpdate: async function(draft) {
       const id = draft._id;
 
+      console.log("save");
       console.log(draft);
       // const { data } = await axios.put("http://127.0.0.1:3000/drafts/" + id, {
       //   title: draft.title,
@@ -55,6 +56,7 @@ export default {
     onDelete: async function(draft) {
       const id = draft._id;
 
+      console.log("delete");
       console.log(draft);
       // const { data } = await axios.delete("http://127.0.0.1:3000/drafts/" + id);
     }
