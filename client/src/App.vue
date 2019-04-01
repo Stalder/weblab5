@@ -15,10 +15,12 @@ export default {
     Pull,
     Markup
   },
-  data: () => ({
-    draftList: [],
-    currentDraft: []
-  }),
+  data: function() {
+    return {
+      draftList: [],
+      currentDraft: []
+    };
+  },
   created: async function() {
     console.log("Created component");
     try {

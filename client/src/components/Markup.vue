@@ -15,11 +15,29 @@
 </template>
 
 <script>
+import marked from "marked";
+import _ from "lodash";
+
 export default {
   name: "Markup",
   props: {
     title: String,
     markup: String
+  },
+  data: function() {
+    return {
+      input: "# Hello"
+    };
+  },
+  computed: {
+    compiledMarkdown: function() {
+      return marked(this.input, { sanitize: true });
+    }
+  },
+  methods: {
+    update: _.debounce(function(event) {
+      this.input = event.target.value;
+    }, 500)
   }
 };
 </script>
@@ -54,7 +72,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-height: 50px;
+  max-height: 40px;
   background-color: white;
   padding: 16px;
   border-bottom: 1px solid #ccc;
@@ -63,5 +81,6 @@ textarea {
 .result {
   flex: 1;
   background-color: "white";
+  padding: 16px;
 }
 </style>
