@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Pull/>
+    <Pull v-bind:pull="draftList" v-bind:onPress="onDraftPress"/>
     <Markup/>
   </div>
 </template>
@@ -19,13 +19,19 @@ export default {
     draftList: [],
     currentDraft: []
   }),
-  created: async () => {
+  created: async function() {
     console.log("Created component");
     try {
-      const data = await fetch("http://127.0.0.1:3000/drafts");
-      console.log(await data.json());
+      console.log("Start requesting drafts");
+      const response = await fetch("http://127.0.0.1:3000/drafts");
+      this.draftList = (await response.clone().json()).drafts;
     } catch (error) {
       console.log(error);
+    }
+  },
+  methods: {
+    onDraftPress: function(draft) {
+      console.log(draft);
     }
   }
 };

@@ -2,15 +2,15 @@
   <div class="pull">
     <h3>Markup drafts</h3>
     <ul>
-      <li>
-        <a href="#">Draft 1</a>
+      <li v-for="draft in pull" v-bind:key="draft._id">
+        <a href="#" v-on:click="onPress(draft)">{{draft.title}}</a>
       </li>
-      <li>
+      <!-- <li>
         <a href="#">Draft 2</a>
       </li>
       <li>
         <a href="#">Draft 3</a>
-      </li>
+      </li>-->
     </ul>
   </div>
 </template>
@@ -18,7 +18,10 @@
 <script>
 export default {
   name: "Pull",
-  props: {}
+  props: {
+    pull: Array,
+    onPress: Function
+  }
 };
 </script>
 
